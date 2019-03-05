@@ -1,0 +1,11 @@
+<config>
+    <modules>
+        <TLSoft_BarionPayment>
+            <active>true</active>
+            <codePool>community</codePool>
+			<depends>
+                <Mage_Payment />
+            </depends>
+        </TLSoft_BarionPayment>
+    </modules>
+</config>

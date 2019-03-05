@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+		<tlsoft translate="title" module="tlbarion">
+			<title>TLSoft Extensions</title>
+			<sort_order>50</sort_order>
+			<children>
+				<tlbarion translate="title" module="tlbarion">
+					<title><![CDATA[Barion Transactions]]></title>
+					<action>adminhtml/barionpayment</action>
+					<sort_order>6</sort_order>
+				</tlbarion>
+			</children>
+		</tlsoft>
+	</menu>
+	<acl>
+        <resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+            <admin>
+                <children>
+                    <tlsoft>
+						<title>TLSoft Extensions</title>
+						<sort_order>50</sort_order>
+						<children>
+							<tlbarion translate="title" module="tlbarion">
+								<title><![CDATA[Barion Transactions]]></title>
+							</tlbarion>
+						</children>
+					</tlsoft>
+                </children>
+             </admin>
+        </resources>
+    </acl>
+</config>

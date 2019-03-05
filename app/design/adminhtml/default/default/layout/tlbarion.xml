@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_barionpayment_index>
+        <reference name="content">
+            <block type="tlbarion/adminhtml_barionpayment" name="tlbarion_transactions" />
+        </reference>
+    </adminhtml_barionpayment_index>
+	
+	<adminhtml_barionpayment_history>
+        <reference name="content">
+            <block type="tlbarion/adminhtml_barionpayment_history" name="tlbarion_transactions_history" />
+        </reference>
+    </adminhtml_barionpayment_history>
+	
+	<adminhtml_barionpayment_historygrid>
+      <block type="tlbarion/adminhtml_barionpayment_history_grid" name="tlbarion_transactions_history_grid" output="toHtml" />
+    </adminhtml_barionpayment_historygrid>
+	
+	<adminhtml_barionpayment_grid>
+      <block type="tlbarion/adminhtml_barionpayment_grid" name="tlbarion_transactions_grid" output="toHtml" />
+    </adminhtml_barionpayment_grid>
+</layout>

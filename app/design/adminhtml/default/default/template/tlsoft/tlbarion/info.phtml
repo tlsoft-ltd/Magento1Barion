@@ -1,0 +1,11 @@
+<?php $order = $this->getInfo()->getOrder(); ?>
+<?php echo $this->getMethod()->getTitle(); ?><br />
+<?php 
+	echo $this->__('Transactions').'<br />';
+	$transactions = $this->getTransactions();
+	$transactions->addFieldToFilter('order_id',$order->getId());
+	
+	foreach ($transactions as $transaction){
+		echo $transaction->getRealOrderid().'<br />';
+	}
+	?>
