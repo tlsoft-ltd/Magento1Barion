@@ -18,8 +18,8 @@ class TLSoft_BarionPayment_Model_Paymentmethod extends Mage_Payment_Model_Method
 	protected $_formBlockType = 'tlbarion/form';
 
 	public function canUseForCurrency($currencyCode)
-    {//pénznem ellenõrzése
-		if ($currencyCode == "HUF" || $currencyCode == "EUR" || $currencyCode == "USD"){
+    {//pÃ©nznem ellenÅ‘rzÃ©se
+		if ($currencyCode == "HUF" || $currencyCode == "EUR" || $currencyCode == "USD" || $currencyCode=="CZK"){
 			$session=Mage::getSingleton('checkout/session');
 			$session->setBarioncurrency($currencyCode);
 			return true;
@@ -30,7 +30,7 @@ class TLSoft_BarionPayment_Model_Paymentmethod extends Mage_Payment_Model_Method
     }
 	
 	public function canUseCheckout()
-	{//ha nincs fent a certifikát fájl
+	{//ha nincs fent a certifikÃ¡t fÃ¡jl
 		$helper=$this->otpHelper();
 		$storeid = Mage::app()->getStore()->getStoreId();
 		/*$cert=$helper->getOtpKeyFile($storeid);
@@ -53,7 +53,7 @@ class TLSoft_BarionPayment_Model_Paymentmethod extends Mage_Payment_Model_Method
     }
 	
 	public function getOrderPlaceRedirectUrl()
-	{//átirányítás az unicreditre-re vivõ oldalra
+	{
 		return Mage::getUrl('tlbarion/redirection/redirect', array('_secure' => true));
 	}
 	
@@ -99,7 +99,7 @@ class TLSoft_BarionPayment_Model_Paymentmethod extends Mage_Payment_Model_Method
 			$products[$i]["ItemTotal"]=round($shipping);
 		}
 
-		$header = array("POSKey"=>$helper->getShopId($storeid),'PaymentType' => 'Immediate','PaymentWindow' => '00:30:00','GuestCheckOut' => true,'FundingSources' => Array('All'),'PaymentRequestId' => $lastorderid,'RedirectUrl' => Mage::getBaseUrl()."tlbarion/redirection/respond/",'OrderNumber'=>$lastorderid,"currency"=>$currency,"locale"=>"hu-HU","Transactions"=>array(array("POSTransactionId"=>$lastorderid,"Payee"=>$email,"Total"=>$ordertotal,"Items"=>$products)));//'CallbackUrl' => Mage::getBaseUrl()."tlbarion/redirection/respond/",
+		$header = array("POSKey"=>$helper->getShopId($storeid),'PaymentType' => 'Immediate','PaymentWindow' => '00:30:00','GuestCheckOut' => true,'FundingSources' => Array('All'),'PaymentRequestId' => $lastorderid,'CallbackUrl' => Mage::getBaseUrl()."tlbarion/redirection/callback/",'RedirectUrl' => Mage::getBaseUrl()."tlbarion/redirection/respond/",'OrderNumber'=>$lastorderid,"currency"=>$currency,"locale"=>$locale,"Transactions"=>array(array("POSTransactionId"=>$lastorderid,"Payee"=>$email,"Total"=>$ordertotal,"Items"=>$products)));
 		
 		$products="";
 
@@ -129,7 +129,7 @@ class TLSoft_BarionPayment_Model_Paymentmethod extends Mage_Payment_Model_Method
 	}
 	
 	protected function getOrderTotal()
-	{//rendelés végösszegének lekérése
+	{//rendelÃ©s vÃ©gÃ¶sszegÃ©nek lekÃ©rÃ©se
 		$helper = $this->otpHelper();
 		$order=$helper->getCurrentOrder();
 		$grandTotal = round($order->getGrandTotal());

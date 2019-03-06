@@ -49,23 +49,21 @@ class TLSoft_BarionPayment_Helper_Data extends Mage_Core_Helper_Abstract
 	public function checkLocalCode()
 	{//nyelv ellenőrzése
 		$localcode=Mage::app()->getLocale()->getLocaleCode();
-		$khlocal=substr(strtolower($localcode),3);
-		$enabledlocals=array("hu");//engedélyezett nyelvek
-		$endotplocal="";
-			foreach ($enabledlocals as $enabledlocal)//engedélyezett nyelvek listájának végigfuttatása
-			{
-				if ($enabledlocal == $khlocal){//ha van találat
-					$endotplocal=$khlocal;//akkor beállítás alapnyelvként
-				}
-			}
-		if ($endotplocal != ""){//ha van találat
-			return $endotplocal;//visszatérés a nyelvvel
+		$enabledlocals=array("hu_HU","cs_CZ","en_US","es_ES","de_DE","fr_FR","sk_SK","si_SI");//engedélyezett nyelvek
+		$endlocale="";
+		foreach ($enabledlocals as $enabledlocal)
+		{
+		    if ($enabledlocal == $localcode){//ha van találat
+		        $endlocale = str_replace("_","-",$localcode);
+		    }
 		}
-		else
-			{//ha nincs találat
-				$endotplocal = "hu";//angol beállítása mint alapnyelv
-				return $endotplocal;
-			}
+		if(empty($endlocale))
+		{
+		    return "en-US";
+        }else{
+		    return $endlocale;
+        }
+
 	}
 	
 	public function processTransResult($order="",$transaction=array())

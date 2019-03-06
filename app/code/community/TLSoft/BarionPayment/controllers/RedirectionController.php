@@ -67,6 +67,11 @@ class TLSoft_BarionPayment_RedirectionController extends Mage_Core_Controller_Fr
         $session->setQuoteId($session->getBarionPaymentPaymentmethodQuoteId(true));*/
         $this->_redirect('checkout/onepage/failure');
 	}
+
+	public function callbackAction()
+    {
+
+    }
  
 }
 ?>
